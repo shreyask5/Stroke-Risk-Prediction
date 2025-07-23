@@ -32,7 +32,7 @@ class StrokePredictionAPI:
     def load_model(self):
         """Load the trained model with error handling."""
         try:
-            model_path = os.getenv('MODEL_PATH', './improved_stroke_model.joblib')
+            model_path = os.getenv('MODEL_PATH', './stroke_prediction_model.joblib')
             if not os.path.exists(model_path):
                 raise FileNotFoundError(f"Model file not found at {model_path}")
             
