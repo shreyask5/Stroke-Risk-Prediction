@@ -117,9 +117,11 @@ except Exception as e:
 # Initialize Flask app
 app = Flask(__name__)
 
-# Production configurations
+# Load configuration from environment variables
 app.config.update(
-    SECRET_KEY=os.getenv('SECRET_KEY', 'your-secret-key-change-in-production'),
+    PORT=int(os.getenv('PORT', 5001)),
+    SERVER_IP=os.getenv('SERVER_IP', '127.0.0.1'),
+    SECRET_KEY=os.getenv('SECRET_KEY', ''),  # Optional, not required for backend connection
     JSON_SORT_KEYS=False,
     JSONIFY_PRETTYPRINT_REGULAR=False
 )
@@ -252,7 +254,7 @@ def home():
 
 if __name__ == "__main__":
     # Development server
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    app.run(host=app.config['SERVER_IP'], port=app.config['PORT'], debug=False)
 else:
     # Production WSGI server
     application = app

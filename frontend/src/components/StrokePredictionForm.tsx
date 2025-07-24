@@ -48,7 +48,8 @@ const StrokePredictionForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://80.225.222.10:5001/predict", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:5001";
+      const response = await fetch(`${backendUrl}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
