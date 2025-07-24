@@ -64,11 +64,22 @@ const StrokePredictionForm = () => {
       });
 
       const result = await response.json();
-      
+
+      if (!response.ok || result.error) {
+        toast({
+          title: "Error",
+          description: result.error || "Failed to get prediction. Please check your input.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // result.data.prediction: 1 = High Risk, 0 = Low Risk
+      // result.data.probability: { no_stroke, stroke }
       toast({
         title: "Prediction Result",
-        description: `Predicted Stroke Risk: ${result.stroke === 1 ? "High Risk" : "Low Risk"}`,
-        variant: result.stroke === 1 ? "destructive" : "default",
+        description: `Predicted Stroke Risk: ${result.data.prediction === 1 ? "High Risk" : "Low Risk"}\nProbability of Stroke: ${(result.data.probability.stroke * 100).toFixed(2)}%\nProbability of No Stroke: ${(result.data.probability.no_stroke * 100).toFixed(2)}%`,
+        variant: result.data.prediction === 1 ? "destructive" : "default",
       });
     } catch (error) {
       toast({
