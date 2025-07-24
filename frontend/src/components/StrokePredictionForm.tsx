@@ -92,7 +92,11 @@ const StrokePredictionForm = () => {
     }
   };
 
-  const isFormValid = Object.values(formData).every(value => value !== "");
+  const isFormValid =
+    Object.values(formData).every(value => value !== "") &&
+    Number(formData.age) >= 0 && Number(formData.age) <= 120 &&
+    Number(formData.avg_glucose_level) >= 0 && Number(formData.avg_glucose_level) <= 500 &&
+    Number(formData.bmi) >= 0 && Number(formData.bmi) <= 100;
 
   return (
     <div className="min-h-screen bg-gradient-background flex items-center justify-center p-4">
@@ -134,11 +138,11 @@ const StrokePredictionForm = () => {
                 <Input
                   id="age"
                   type="number"
-                  min="1"
+                  min="0"
                   max="120"
                   value={formData.age}
                   onChange={(e) => handleInputChange("age", e.target.value)}
-                  placeholder="Enter age"
+                  placeholder="Enter age (0-120)"
                 />
               </div>
 
@@ -223,9 +227,10 @@ const StrokePredictionForm = () => {
                   type="number"
                   step="0.01"
                   min="0"
+                  max="500"
                   value={formData.avg_glucose_level}
                   onChange={(e) => handleInputChange("avg_glucose_level", e.target.value)}
-                  placeholder="Enter glucose level"
+                  placeholder="Enter glucose level (0-500)"
                 />
               </div>
 
@@ -237,9 +242,10 @@ const StrokePredictionForm = () => {
                   type="number"
                   step="0.1"
                   min="0"
+                  max="100"
                   value={formData.bmi}
                   onChange={(e) => handleInputChange("bmi", e.target.value)}
-                  placeholder="Enter BMI"
+                  placeholder="Enter BMI (0-100)"
                 />
               </div>
 
