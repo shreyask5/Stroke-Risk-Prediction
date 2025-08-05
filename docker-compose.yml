@@ -8,5 +8,5 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3001:80"
+      - "3001:3001"
     restart: unless-stopped
