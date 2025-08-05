@@ -4,6 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  base: "/projects/stroke-prediction/demo/",  // Add this line
   server: {
     host: "::",
     port: 8080,
